@@ -1,0 +1,32 @@
+-----Simple Pig Latin-----
+def pig_it(text)
+  array = text.split(' ')
+  array.map!.with_index { |x, i| array[i] + array[i].slice!(0) + 'ay' }
+  array.join(' ')
+end
+Test.assert_equals(pig_it('Pig latin is cool'),'igPay atinlay siay oolcay')
+Test.assert_equals(pig_it('This is my string'),'hisTay siay ymay tringsay')
+
+-----Directions Reduction-----
+def dirReduc(arr)
+  opposite = {
+    'NORTH' => 'SOUTH',
+    'SOUTH' => 'NORTH',
+    'EAST' => 'WEST',
+    'WEST' => 'EAST'
+  }
+  array = []
+  arr.each do |x|
+    if array.empty? || opposite[array.last] != x
+      array << x
+    else
+      array.slice!(-1) if opposite[array.last] == x
+    end
+  end
+  array
+end
+a = ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"]
+Test.assert_equals(dirReduc(a), ["WEST"])
+u=["NORTH", "WEST", "SOUTH", "EAST"]
+Test.assert_equals(dirReduc(u), ["NORTH", "WEST", "SOUTH", "EAST"])
+
