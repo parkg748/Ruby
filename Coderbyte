@@ -1,0 +1,277 @@
+-----First Reverse-----
+Using the Ruby language, have the function FirstReverse(str) take the str parameter being passed and return the string in 
+reversed order. For example: if the input string is "Hello World and Coders" then your program should return the string 
+sredoC dna dlroW olleH. 
+
+def FirstReverse(str)
+    str.reverse
+end
+
+-----First Factorial-----
+Using the Ruby language, have the function FirstFactorial(num) take the num parameter being passed and return the factorial of 
+it (e.g. if num = 4, return (4 * 3 * 2 * 1)). For the test cases, the range will be between 1 and 18 and the input will always 
+be an integer. 
+
+def FirstFactorial(num)
+    (1..num).inject(:*)
+end
+
+-----Longest Word-----
+Using the Ruby language, have the function LongestWord(sen) take the sen parameter being passed and return the largest word in 
+the string. If there are two or more words that are the same length, return the first word from the string with that length. 
+Ignore punctuation and assume sen will not be empty. 
+
+def LongestWord(sen)
+    array = sen.split(' ')
+    max_length = 0
+    best_word = ''
+    array.each do |x|
+        if x.scan(/\w+/)[0].length > max_length
+            max_length = x.scan(/\w+/)[0].length
+            best_word = x.scan(/\w+/)[0]
+        end
+    end
+    best_word
+end
+
+-----Letter Changes-----
+Using the Ruby language, have the function LetterChanges(str) take the str parameter being passed and modify it using the 
+following algorithm. Replace every letter in the string with the letter following it in the alphabet (ie. c becomes d, z 
+becomes a). Then capitalize every vowel in this new string (a, e, i, o, u) and finally return this modified string. 
+
+def LetterChanges(str)
+    array = str.split(//)
+    array.each_with_index do |x, i|
+        if x == 'z'
+            array[i] = 'A'
+        elsif x =~ /[a-y]/ && (x.ord + 1).chr =~ /[aeiou]/
+            array[i] = (x.ord + 1).chr.upcase
+        elsif x =~ /[a-y]/
+            array[i] = (x.ord + 1).chr
+        end
+    end
+    array.join
+end
+
+-----Simple Adding-----
+Using the Ruby language, have the function SimpleAdding(num) add up all the numbers from 1 to num. For example: if the input is 
+4 then your program should return 10 because 1 + 2 + 3 + 4 = 10. For the test cases, the parameter num will be any number from 
+1 to 1000. 
+
+def SimpleAdding(num)
+    (1..num).inject(:+)
+end
+
+-----Letter Capitalize-----
+Using the Ruby language, have the function LetterCapitalize(str) take the str parameter being passed and capitalize the first 
+letter of each word. Words will be separated by only one space. 
+
+def LetterCapitalize(str)
+    array = str.split(' ')
+    array.map! { |x| x.capitalize }
+    array.join(' ')
+end
+
+-----Simple Symbols-----
+Using the Ruby language, have the function SimpleSymbols(str) take the str parameter being passed and determine if it is an 
+acceptable sequence by either returning the string true or false. The str parameter will be composed of + and = symbols with 
+several letters between them (ie. ++d+===+c++==a) and for the string to be true each letter must be surrounded by a + symbol. 
+So the string to the left would be false. The string will not be empty and will have at least one letter. 
+
+def SimpleSymbols(str)
+    return false if str.length < 3
+    i = 0
+    until i == str.length - 1
+        if i == 0 && str[i] =~ /[a-zA-Z]/ || str[str.length - 1] =~ /[a-zA-Z]/
+            return false
+        elsif str[i] =~ /[a-zA-Z]/ && (str[i - 1] != '+' || str[i + 1] != '+')
+            return false
+        end
+        i += 1
+    end
+    true
+end
+
+-----Check Nums-----
+Using the Ruby language, have the function CheckNums(num1,num2) take both parameters being passed and return the string true 
+if num2 is greater than num1, otherwise return the string false. If the parameter values are equal to each other then return 
+the string -1. 
+
+def CheckNums(num1,num2)
+    if num2 > num1
+        return true
+    elsif num1 > num2
+        return false
+    end
+    -1
+end
+
+-----Time Convert-----
+Using the Ruby language, have the function TimeConvert(num) take the num parameter being passed and return the number of hours 
+and minutes the parameter converts to (ie. if num = 63 then the output should be 1:3). Separate the number of hours and 
+minutes with a colon. 
+
+def TimeConvert(num)
+    hour = 0
+    min = 0
+    until num == 0
+        if num >= 60
+            hour += 1
+            num -= 60
+        else
+            min = num
+            num = 0
+        end
+    end
+    hour.to_s + ':' + min.to_s
+end
+
+-----Alphabet Soup-----
+Using the Ruby language, have the function AlphabetSoup(str) take the str string parameter being passed and return the string 
+with the letters in alphabetical order (ie. hello becomes ehllo). Assume numbers and punctuation symbols will not be included 
+in the string. 
+
+def AlphabetSoup(str)
+    str.split(//).sort.join
+end
+
+-----AB Check-----
+Using the Ruby language, have the function ABCheck(str) take the str parameter being passed and return the string true if the 
+characters a and b are separated by exactly 3 places anywhere in the string at least once (ie. "lane borrowed" would result in 
+true because there is exactly three characters between a and b). Otherwise return the string false. 
+
+def ABCheck(str)
+    str.each_char.with_index { |x, i| return true if (x == 'b' && str[i + 4] == 'a') || (x == 'a' && str[i + 4] == 'b') }
+    false
+end
+
+-----Vowel Count-----
+Using the Ruby language, have the function VowelCount(str) take the str string parameter being passed and return the number of 
+vowels the string contains (ie. "All cows eat grass and moo" would return 8). Do not count y as a vowel for this challenge.
+
+def VowelCount(str)
+    count = 0
+    str.each_char { |x| count += 1 if x =~ /[aeiouAEIOU]/ }
+    count
+end
+
+-----Word Count-----
+Using the Ruby language, have the function WordCount(str) take the str string parameter being passed and return the number of 
+words the string contains (e.g. "Never eat shredded wheat or cake" would return 6). Words will be separated by single spaces. 
+
+def WordCount(str)
+    str.split(' ').length
+end
+
+-----Ex Oh-----
+Using the Ruby language, have the function ExOh(str) take the str parameter being passed and return the string true if there 
+is an equal number of x's and o's, otherwise return the string false. Only these two letters will be entered in the string, 
+no punctuation or numbers. For example: if str is "xooxxxxooxo" then the output should return false because there are 6 x's 
+and 5 o's. 
+
+def ExOh(str)
+    if str.count('x') == str.count('o')
+        return true
+    else
+        return false
+    end
+end
+
+-----Palindrome-----
+Using the Ruby language, have the function Palindrome(str) take the str parameter being passed and return the string true if 
+the parameter is a palindrome, (the string is the same forward as it is backward) otherwise return the string false. For 
+example: "racecar" is also "racecar" backwards. Punctuation and numbers will not be part of the string. 
+
+def Palindrome(str)
+    if str.split(' ').join == str.split(' ').join.reverse
+        return true
+    else
+        return false
+    end
+end
+
+-----Arith Geo-----
+Using the Ruby language, have the function ArithGeo(arr) take the array of numbers stored in arr and return the string 
+"Arithmetic" if the sequence follows an arithmetic pattern or return "Geometric" if it follows a geometric pattern. If the 
+sequence doesn't follow either pattern return -1. An arithmetic sequence is one where the difference between each of the 
+numbers is consistent, where as in a geometric sequence, each term after the first is multiplied by some constant or common 
+ratio. Arithmetic example: [2, 4, 6, 8] and Geometric example: [2, 6, 18, 54]. Negative numbers may be entered as parameters, 
+0 will not be entered, and no array will contain all the same elements. 
+
+def ArithGeo(arr)
+    difference = arr[1] - arr[0]
+    multiply = arr[1] / arr[0]
+    status = nil
+    i = 0
+    until i == arr.length - 1
+        if arr[i] + difference == arr[i + 1]
+            status = 'Arithmetic'
+        else
+            status = nil
+            break
+        end
+        i += 1
+    end
+    if status == nil
+        i = 0
+        until i == arr.length - 1
+            if arr[i] * multiply == arr[i + 1]
+                status = 'Geometric'
+            else
+                status = nil
+                break
+            end
+            i += 1
+        end
+    end
+    status == nil ? -1 : status
+end
+
+-----Array Addition I-----
+Using the Ruby language, have the function ArrayAdditionI(arr) take the array of numbers stored in arr and return the string 
+true if any combination of numbers in the array (excluding the largest number) can be added up to equal the largest number in 
+the array, otherwise return the string false. For example: if arr contains [4, 6, 23, 10, 1, 3] the output should return true 
+because 4 + 6 + 10 + 3 = 23. The array will not be empty, will not contain all the same elements, and may contain negative 
+numbers. 
+
+def ArrayAdditionI(arr)
+    max_num = arr.max
+    arr.delete(max_num)
+    (arr.length).downto(2) do |x|
+        arr.combination(x).each { |y| return true if y.inject(:+) == max_num }
+    end
+    false
+end
+
+-----Second Greatest Low-----
+Using the Ruby language, have the function SecondGreatLow(arr) take the array of numbers stored in arr and return the second 
+lowest and second greatest numbers, respectively, separated by a space. For example: if arr contains [7, 7, 12, 98, 106] the 
+output should be 12 98. The array will not be empty and will contain at least 2 numbers. It can get tricky if there's just two 
+numbers! 
+
+def SecondGreatLow(arr)
+    arr = arr.sort.uniq
+    return arr[0].to_s + ' ' + arr[0].to_s if arr.length == 2
+    return arr[1].to_s + ' ' + arr[0].to_s if arr.length == 2
+    arr[1].to_s + ' ' + arr[-2].to_s
+end
+
+-----Division Stringified-----
+Using the Ruby language, have the function DivisionStringified(num1,num2) take both parameters being passed, divide num1 by 
+num2, and return the result as a string with properly formatted commas. If an answer is only 3 digits long, return the number 
+with no commas (ie. 2 / 3 should output "1"). For example: if num1 is 123456789 and num2 is 10000 the output should be 
+"12,346". 
+
+def DivisionStringified(num1,num2)
+    require 'enumerator'
+    equation = (num1.to_f / num2.to_f).round
+    if equation.to_s.length > 3
+        array = equation.to_s.split(//).reverse
+        array = array.enum_for(:each_slice, 3).to_a
+        array.map! { |x| x.join }
+        return array.join(',').reverse
+    end
+    equation.to_s
+end
+
+-----
